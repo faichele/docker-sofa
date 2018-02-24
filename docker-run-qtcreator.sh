@@ -21,12 +21,13 @@ PULSE_SERVER_TCP_ENV="-e PULSE_SERVER=tcp:172.17.0.1:4713"
 # like qtcreator connect to the host xorg server.
 # The current user home directory is also mounted directly into the
 # container.
-docker run -it \
+nvidia-docker run -it \
 	--privileged \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-v /home/`id -nu`:/home/`id -nu` \
-	-e DISPLAY=unix$DISPLAY \
+	--env="DISPLAY" \
+        --env="QT_X11_NO_MITSHM=1" \
 	$PULSE_SERVER_TCP_ENV \
 	--name qtcreator \
-	erstrom/qt \
+	alpenland/docker-qtcreator \
 	qtcreator

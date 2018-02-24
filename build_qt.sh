@@ -39,12 +39,13 @@ SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
 # Configuration env vars will be set to default values if not defined.
 [[ -z ${QT_TOP_DIR+x} ]] && QT_TOP_DIR=$SCRIPT_DIR
-[[ -z ${QT_VERSION+x} ]] && QT_VERSION="master"
-[[ -z ${QT_J_LEVEL+x} ]] && QT_J_LEVEL=$((`nproc`+1))
+[[ -z ${QT_VERSION+x} ]] && QT_VERSION="5.10.1"
+[[ -z ${QT_J_LEVEL+x} ]] && QT_J_LEVEL=2
+# QT_J_LEVEL=$((`nproc`+1))
 [[ -z ${QT_GIT_URL+x} ]] && QT_GIT_URL="https://code.qt.io/qt/qt5.git"
 [[ -z ${QT_WORKING_DIR+x} ]] && QT_WORKING_DIR="qt5"
 [[ -z ${QT_INIT_REPOSITORY_OPTS+x} ]] && QT_INIT_REPOSITORY_OPTS="--module-subset=default,-qtwebkit,-qtwebkit-examples,-qtwebengine"
-[[ -z ${QT_CONFIGURE_OPTS+x} ]] && QT_CONFIGURE_OPTS="-opensource -nomake examples -nomake tests -confirm-license"
+[[ -z ${QT_CONFIGURE_OPTS+x} ]] && QT_CONFIGURE_OPTS="-opensource -nomake examples -nomake tests -confirm-license -no-eglfs"
 [[ -z ${QT_CREATOR_GIT_URL+x} ]] && QT_CREATOR_GIT_URL="https://code.qt.io/qt-creator/qt-creator.git"
 [[ -z ${QT_CREATOR_VERSION+x} ]] && QT_CREATOR_VERSION="master"
 [[ -z ${QT_CREATOR_WORKING_DIR+x} ]] && QT_CREATOR_WORKING_DIR="qt-creator"
