@@ -1,0 +1,24 @@
+services:
+  sofa-qtcreator:
+    devices:
+    - /dev/nvidia0
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+    - /dev/nvidia-uvm-tools
+    entrypoint: /usr/local/bin/start-qtcreator.sh
+    environment:
+    - QT_X11_NO_MITSHM=1
+    - DISPLAY=:0
+    image: mythical.alpenland.local:8102/fabian/docker-ros
+    privileged: true
+    stdin_open: true
+    tty: true
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    - /trunet/data/volume1/src:/home/user/src
+    - /trunet/data/volume1/build:/home/user/build
+    - nvidia_driver_390.30:/usr/local/nvidia:ro
+version: '2'
+volumes:
+  nvidia_driver_390.30:
+    external: true

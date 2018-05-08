@@ -1,0 +1,17 @@
+version: "2"
+services:
+  sofa-qtcreator:
+    image: mythical.alpenland.local:8102/fabian/docker-ros
+    stdin_open: true
+    privileged: true
+    tty: true
+    entrypoint: /usr/local/bin/start-qtcreator.sh
+    environment:
+      - QT_X11_NO_MITSHM=1
+      - DISPLAY=:0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /trunet/data/volume1/src:/home/user/src
+      - /trunet/data/volume1/build:/home/user/build
+    devices:
+      - /dev/nvidia0
