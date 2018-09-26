@@ -1,0 +1,20 @@
+- git:
+    local-name: trac_ik/trac_ik
+    uri: https://github.com/traclabs/trac_ik-release.git
+    version: release/kinetic/trac_ik/1.4.11-0
+- git:
+    local-name: trac_ik/trac_ik_examples
+    uri: https://github.com/traclabs/trac_ik-release.git
+    version: release/kinetic/trac_ik_examples/1.4.11-0
+- git:
+    local-name: trac_ik/trac_ik_kinematics_plugin
+    uri: https://github.com/traclabs/trac_ik-release.git
+    version: release/kinetic/trac_ik_kinematics_plugin/1.4.11-0
+- git:
+    local-name: trac_ik/trac_ik_lib
+    uri: https://github.com/traclabs/trac_ik-release.git
+    version: release/kinetic/trac_ik_lib/1.4.11-0
+- git:
+    local-name: trac_ik/trac_ik_python
+    uri: https://github.com/traclabs/trac_ik-release.git
+    version: release/kinetic/trac_ik_python/1.4.11-0

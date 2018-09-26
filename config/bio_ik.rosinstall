@@ -1,0 +1,4 @@
+- git:
+    local-name: bio_ik
+    uri: https://github.com/TAMS-Group/bio_ik.git
+    version: master

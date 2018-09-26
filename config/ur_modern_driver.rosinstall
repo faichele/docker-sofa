@@ -1,0 +1,92 @@
+- git:
+    local-name: ros_control/controller_interface
+    uri: https://github.com/ros-gbp/ros_control-release.git
+    version: release/kinetic/controller_interface/0.13.3-0
+- git:
+    local-name: ros_control/controller_manager
+    uri: https://github.com/ros-gbp/ros_control-release.git
+    version: release/kinetic/controller_manager/0.13.3-0
+- git:
+    local-name: ros_control/controller_manager_msgs
+    uri: https://github.com/ros-gbp/ros_control-release.git
+    version: release/kinetic/controller_manager_msgs/0.13.3-0
+- git:
+    local-name: ros_control/hardware_interface
+    uri: https://github.com/ros-gbp/ros_control-release.git
+    version: release/kinetic/hardware_interface/0.13.3-0
+- git:
+    local-name: ros_control/joint_limits_interface
+    uri: https://github.com/ros-gbp/ros_control-release.git
+    version: release/kinetic/joint_limits_interface/0.13.3-0
+- git:
+    local-name: ros_control/transmission_interface
+    uri: https://github.com/ros-gbp/ros_control-release.git
+    version: release/kinetic/transmission_interface/0.13.3-0
+- git:
+    local-name: ros_controllers/effort_controllers
+    uri: https://github.com/ros-gbp/ros_controllers-release.git
+    version: release/kinetic/effort_controllers/0.13.4-0
+- git:
+    local-name: ros_controllers/forward_command_controller
+    uri: https://github.com/ros-gbp/ros_controllers-release.git
+    version: release/kinetic/forward_command_controller/0.13.4-0
+- git:
+    local-name: ros_controllers/joint_state_controller
+    uri: https://github.com/ros-gbp/ros_controllers-release.git
+    version: release/kinetic/joint_state_controller/0.13.4-0
+- git:
+    local-name: ros_controllers/joint_trajectory_controller
+    uri: https://github.com/ros-gbp/ros_controllers-release.git
+    version: release/kinetic/joint_trajectory_controller/0.13.4-0
+- git:
+    local-name: universal_robot/universal_robot
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/universal_robot/1.2.1-0
+- git:
+    local-name: universal_robot/ur10_moveit_config
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur10_moveit_config/1.2.1-0
+- git:
+    local-name: universal_robot/ur3_moveit_config
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur3_moveit_config/1.2.1-0
+- git:
+    local-name: universal_robot/ur5_moveit_config
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur5_moveit_config/1.2.1-0
+- git:
+    local-name: universal_robot/ur_bringup
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur_bringup/1.2.1-0
+- git:
+    local-name: universal_robot/ur_description
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur_description/1.2.1-0
+- git:
+    local-name: universal_robot/ur_driver
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur_driver/1.2.1-0
+- git:
+    local-name: universal_robot/ur_gazebo
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur_gazebo/1.2.1-0
+- git:
+    local-name: universal_robot/ur_kinematics
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur_kinematics/1.2.1-0
+- git:
+    local-name: universal_robot/ur_msgs
+    uri: https://github.com/ros-industrial-release/universal_robot-release.git
+    version: release/kinetic/ur_msgs/1.2.1-0
+- git:
+    local-name: vision_opencv/cv_bridge
+    uri: https://github.com/ros-gbp/vision_opencv-release.git
+    version: release/kinetic/cv_bridge/1.12.8-0
+- git:
+    local-name: warehouse_ros
+    uri: https://github.com/ros-gbp/warehouse_ros-release.git
+    version: release/kinetic/warehouse_ros/0.9.0-0
+- git:
+    local-name: ur_modern_driver
+    uri: https://github.com/iron-ox/ur_modern_driver.git
+    version: iron-kinetic-devel
