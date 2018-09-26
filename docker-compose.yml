@@ -1,17 +1,68 @@
-version: "2"
+version: '2'
+
 services:
-  sofa-qtcreator:
-    image: mythical.alpenland.local:8102/fabian/docker-ros
+  ros-moveit:
+    build:
+      context: .
+      dockerfile: ros_moveit.Dockerfile
+      args:
+        NRP_USER: fabian
+        CMAKE_BUILD_TYPE: 'Debug'
+        ROS_MASTER_URI: 'http://ros-moveit:11311'
+    hostname: ros-moveit
     stdin_open: true
-    privileged: true
     tty: true
-    entrypoint: /usr/local/bin/start-qtcreator.sh
-    environment:
-      - QT_X11_NO_MITSHM=1
-      - DISPLAY=:0
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /trunet/data/volume1/src:/home/user/src
-      - /trunet/data/volume1/build:/home/user/build
     devices:
-      - /dev/nvidia0
+    - /dev/nvidia0
+    environment:
+    - DISPLAY=:0
+    - QT_X11_NO_MITSHM=1
+    - ROS_MASTER_URI=http://localhost:11311
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    networks:
+      sofa-ros-local-network:
+        ipv4_address: 10.8.0.2
+        aliases:
+        - ros-moveit
+  qt-creator:
+    build:
+      context: .
+      dockerfile: qt.Dockerfile
+      args:
+        USER: fabian
+        CMAKE_BUILD_TYPE: 'Debug'
+        ROS_MASTER_URI: 'http://ros-moveit:11311'
+    hostname: sofa-ros
+    stdin_open: true
+    tty: true
+    security_opt:
+        - seccomp:unconfined
+    devices:
+    - /dev/nvidia0
+    environment:
+    - DISPLAY=:0
+    - QT_X11_NO_MITSHM=1
+    - ROS_MASTER_URI=http://10.8.0.2:11311
+    volumes:
+    - ./home/fabian:/home/fabian
+    - /trunet/data/volume1/build:/home/fabian/build
+    - /trunet/data/volume1/src:/home/fabian/src
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    networks:
+      sofa-ros-local-network:
+        ipv4_address: 10.8.0.3
+        aliases:
+        - sofa-ros
+
+networks:
+  sofa-ros-local-network:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.8.0.0/16
+         gateway: 10.8.0.1
+
+volumes:
+  nvidia_driver_390.30:
+    external: true

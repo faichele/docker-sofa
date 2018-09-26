@@ -1,12 +1,68 @@
+version: '2'
+
 services:
-  sofa-qtcreator:
-    build: .
+  ros-moveit:
+    build:
+      context: .
+      dockerfile: ros_moveit.Dockerfile
+      args:
+        NRP_USER: fabian
+        CMAKE_BUILD_TYPE: 'Debug'
+        ROS_MASTER_URI: 'http://ros-moveit:11311'
+    hostname: ros-moveit
     stdin_open: true
     tty: true
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /trunet/data/volume1/src:/home/user/src
-      - /trunet/data/volume1/build:/home/user/build
+    devices:
+    - /dev/nvidia0
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+    - /dev/nvidia-uvm-tools
     environment:
-      - DISPLAY=:0
-      - QT_X11_NO_MITSHM=1
+    - DISPLAY=:0
+    - QT_X11_NO_MITSHM=1
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    - nvidia_driver_390.30:/usr/local/nvidia:ro
+  qt-creator:
+    build:
+      context: .
+      dockerfile: qt.Dockerfile
+      args:
+        USER: fabian
+        CMAKE_BUILD_TYPE: 'Debug'
+        ROS_MASTER_URI: 'http://ros-moveit:11311'
+    hostname: sofa-ros
+    stdin_open: true
+    tty: true
+    devices:
+    - /dev/nvidia0
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+    - /dev/nvidia-uvm-tools
+    environment:
+    - DISPLAY=:0
+    - QT_X11_NO_MITSHM=1
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    - nvidia_driver_390.30:/usr/local/nvidia:ro
+volumes:
+  nvidia_driver_390.30:
+    external: true
+
+# version: "2"
+#services:
+#  sofa-qtcreator:
+#    image: mythical.alpenland.local:8102/fabian/docker-ros
+#    stdin_open: true
+#    privileged: true
+#    tty: true
+#    entrypoint: /usr/local/bin/start-qtcreator.sh
+#    environment:
+#      - QT_X11_NO_MITSHM=1
+#      - DISPLAY=:0
+#    volumes:
+#      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+#      - /trunet/data/volume1/src:/home/user/src
+#      - /trunet/data/volume1/build:/home/user/build
+#    devices:
+#      - /dev/nvidia0
