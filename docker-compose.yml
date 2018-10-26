@@ -17,7 +17,7 @@ services:
     environment:
     - DISPLAY=:0
     - QT_X11_NO_MITSHM=1
-    - ROS_MASTER_URI=http://localhost:11311
+    - ROS_MASTER_URI=http://ros-moveit:11311
     volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix:rw
     networks:
@@ -43,7 +43,7 @@ services:
     environment:
     - DISPLAY=:0
     - QT_X11_NO_MITSHM=1
-    - ROS_MASTER_URI=http://10.8.0.2:11311
+    - ROS_MASTER_URI=http://ros-moveit:11311
     volumes:
     - ./home/fabian:/home/fabian
     - /trunet/data/volume1/build:/home/fabian/build
