@@ -4,6 +4,7 @@ Docker setup for SOFA and ROS.
 
 This repository contains Dockerfiles and a docker-compose configuration for:
 - A development installation for the SOFA framework
+- A docker-ized installation of URSim, the offline programming simulator for robots from Universal Robotics (UR3, UR5, UR10)
 - A docker-ized ROS Kinetic installation including Universal Robot ROS drivers and default MoveIt! installation
 
 ===================================
@@ -31,6 +32,11 @@ The tool and installation instructions can be found at: https://github.com/eywal
 How to build the images
 ==================================
 
+You need to download the installation archive for URSim, specifically version 3.6.0.30512, from:
+https://www.universal-robots.com/download/
+Select "CB series" -> "Software" -> "Offline Simulator" -> "Linux" -> "URSim 3.6.0".
+Extract the downloaded TAR archive, which in turn contains another TAR archive named "ursim-3.6.0.30512.tar.gz". Copy this TAR archive to the directory where you checked out the docker-sofa repository.
+
 First, you need to adapt some values in the file docker-compose.yml to your local setup:
 - Change the value of all occurrences of NRP_USER. This is the name of the non-privileged user account that will be used in both Docker containers.
 - 'networks' statements: The docker-compose setup for the two containers uses static IP address definitions. If for any reason you need to change these. please take care to pick consistent values for container IP adresses and subnet range.
@@ -48,7 +54,6 @@ Locate the volume name you need to put at the end of the docker-compose file in 
 docker volume ls
 
 The volume should use the "nvidia-docker" driver.
-
 
 In the directory where you cloned the repository to, use the command:
 docker-compose build
