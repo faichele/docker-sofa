@@ -22,7 +22,7 @@ services:
     environment:
     - DISPLAY=:0
     - QT_X11_NO_MITSHM=1
-    - ROS_MASTER_URI=http://10.8.0.2:11311
+    - ROS_MASTER_URI=http://ros-moveit:11311
     hostname: sofa-ros
     networks:
       sofa-ros-local-network:
@@ -55,7 +55,7 @@ services:
     environment:
     - DISPLAY=:0
     - QT_X11_NO_MITSHM=1
-    - ROS_MASTER_URI=http://localhost:11311
+    - ROS_MASTER_URI=http://ros-moveit:11311
     hostname: ros-moveit
     networks:
       sofa-ros-local-network:

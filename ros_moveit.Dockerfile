@@ -272,5 +272,9 @@ RUN usermod -a -G sudo ${NRP_USER}
 
 RUN chown ${NRP_USER}:${NRP_USER} /home/${NRP_USER}/.ros -R
 
+COPY ./entrypoint_ur10.sh /usr/local/bin/docker-entrypoint.sh
+RUN /bin/bash -c "chmod +x /usr/local/bin/docker-entrypoint.sh"
+
 USER ${NRP_USER}
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD tail -f /dev/null

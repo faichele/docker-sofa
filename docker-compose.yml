@@ -1,6 +1,51 @@
 version: '2'
 
 services:
+  ursim:
+    build:
+      context: .
+      dockerfile: ursim.Dockerfile
+      args:
+        URSIM_USER: fabian
+        URSIM_GROUP: domänen-benutzer
+        URSIM_USER_UID: 1575403612
+        URSIM_USER_GID: 1575400513
+        URSIM_TAR_ARCHIVE: ursim-3.6.0.30512.tar.gz
+        URSIM_DIRECTORY: ursim-3.6.0.30512
+    devices:
+    - /dev/nvidia0
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+    - /dev/nvidia-uvm-tools
+    tmpfs:
+    - /tmp
+    - /run
+    cap_add:
+    - SYS_ADMIN
+    - SYS_NICE
+    - SYS_RESOURCE
+    - SYS_TIME
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+    - DISPLAY=:0
+    - QT_X11_NO_MITSHM=1
+    image: ursim
+    hostname: ursim
+    privileged: true
+    ports:
+    - 30000
+    - 30001
+    - 30002
+    - 30003
+    - 30004
+    networks:
+      sofa-ros-local-network:
+        ipv4_address: 10.8.0.2
+        aliases:
+          - ursim
   ros-moveit:
     build:
       context: .
@@ -22,15 +67,17 @@ services:
     - /tmp/.X11-unix:/tmp/.X11-unix:rw
     networks:
       sofa-ros-local-network:
-        ipv4_address: 10.8.0.2
+        ipv4_address: 10.8.0.3
         aliases:
         - ros-moveit
   qt-creator:
     build:
       context: .
-      dockerfile: qt.Dockerfile
+      dockerfile: sofa_qt.Dockerfile
       args:
         USER: fabian
+        USER_UID: 1575403612
+        USER_GID: 1575400513
         CMAKE_BUILD_TYPE: 'Debug'
         ROS_MASTER_URI: 'http://ros-moveit:11311'
     hostname: sofa-ros
@@ -45,13 +92,13 @@ services:
     - QT_X11_NO_MITSHM=1
     - ROS_MASTER_URI=http://ros-moveit:11311
     volumes:
-    - ./home/fabian:/home/fabian
+    - ./home/fabian/.config:/home/fabian/.config
     - /trunet/data/volume1/build:/home/fabian/build
     - /trunet/data/volume1/src:/home/fabian/src
     - /tmp/.X11-unix:/tmp/.X11-unix:rw
     networks:
       sofa-ros-local-network:
-        ipv4_address: 10.8.0.3
+        ipv4_address: 10.8.0.4
         aliases:
         - sofa-ros
 

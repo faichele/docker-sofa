@@ -18,8 +18,6 @@ RUN groupadd -g 1000 ${USER} || true
 
 RUN userdel ${USER} || true
 RUN useradd -G video -s /bin/bash -u 1000 -g 1000 ${USER} || true
-# RUN usermod -u ${USER_UID} ${USER}
-# RUN usermod -g ${USER_GID} ${USER}
 
 COPY ./sources.list /etc/apt/sources.list
 
@@ -58,30 +56,29 @@ ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
 
 # Build prerequisites
-RUN apt-get -y build-dep qtbase-opensource-src
-RUN apt-get -y install libxcb-xinerama0-dev
-RUN apt-get -y install libboost-filesystem-dev libboost-locale-dev libboost-program-options-dev
-RUN apt-get -y install libogre-1.9.0v5 libogre-1.9-dev libogre-1.9.0v5-dbg
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y build-dep qtbase-opensource-src
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install libxcb-xinerama0-dev libqt5opengl5-dev qtbase5-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install libboost-filesystem-dev libboost-locale-dev libboost-program-options-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install libogre-1.9.0v5 libogre-1.9-dev libogre-1.9.0v5-dbg
 
 # ROS base
-RUN apt-get -y --allow-unauthenticated install ros-kinetic-ros-base
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y --allow-unauthenticated install ros-kinetic-ros-base
 
 # Simple root password in case we want to customize the container
 RUN echo "root:root" | chpasswd
 
-RUN mkdir -p /home/${USER}/qt/build
-ADD build_qt.sh /home/${USER}/qt/build/build_qt.sh
+# Qt Creator
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install qtcreator
 ADD entrypoint_qtcreator.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /home/${USER}/qt/build/build_qt.sh /usr/local/bin/entrypoint.sh
 
-WORKDIR /home/${USER}/qt
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y build-dep libsofa1
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -yq install libassimp-dev libpython3-dev cuda-tools-9-1 cuda-toolkit-9-1 libogre-1.9-dev bison flex libpng-dev sudo iputils-ping
 
-RUN QT_VERSION=$QT_VERSION QT_CREATOR_VERSION=$QT_CREATOR_VERSION /home/${USER}/qt/build/build_qt.sh
-
-RUN apt-get -y build-dep libsofa1
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -yq install libassimp-dev libpython3-dev cuda-tools-9-1 cuda-toolkit-9-1 libogre-1.9-dev bison flex libpng-dev sudo
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 RUN usermod -a -G sudo ${USER}
+RUN echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN mkdir -p /home/${USER}
 RUN chown ${USER}.${USER} /home/${USER} -R
 
 USER ${USER}	

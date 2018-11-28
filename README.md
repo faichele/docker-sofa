@@ -65,6 +65,12 @@ xhost +local:
 Then, you can start the containers with:
 nvidia-docker-compose -f docker-compose.yml up -d
 
+To show the container status:
+nvidia-docker-compose ps
+
+To run an interactive bash shell in one of the containers:
+nvidia-docker-compose exec -u <user name> ros-moveit /bin/bash
+
 ==================================
 Questions and Issues
 ==================================
